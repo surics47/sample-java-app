@@ -3,9 +3,9 @@ pipeline {
 
     environment {
         // Define environment variables
-        DOCKER_IMAGE = 'java-app/sample-java-app'
-        ECR_REGISTRY = '237814008471.dkr.ecr.us-east-1.amazonaws.com'
-        ECR_CREDENTIALS_ID = 'your-ecr-credentials-id'
+        DOCKER_IMAGE = 'public.ecr.aws/n5h8y2y9/java-app'
+        ECR_REGISTRY = 'public.ecr.aws/n5h8y2y9'
+        ECR_CREDENTIALS_ID = 'aws'
     }
 
     stages {
@@ -21,6 +21,14 @@ pipeline {
                 script {
                     // Assuming Dockerfile is at the root of the project
                     docker.build("${ECR_REGISTRY}/${DOCKER_IMAGE}")
+                }
+            }
+        }
+
+        stage('Login to ECR Public') {
+            steps {
+                script {
+                    sh "aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ECR_REGISTRY}"
                 }
             }
         }
