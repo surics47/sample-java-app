@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define environment variables
-        AVA_HOME = '/usr/lib/jvm/java-11-amazon-corretto.x86_64'
+        JAVA_HOME = '/usr/lib/jvm/java-11-amazon-corretto.x86_64'
         DOCKER_IMAGE = 'public.ecr.aws/n5h8y2y9/java-app'
         ECR_REGISTRY = 'public.ecr.aws/n5h8y2y9'
         ECR_CREDENTIALS_ID = 'aws'
